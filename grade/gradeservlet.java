@@ -1,0 +1,46 @@
+/*<!-- School Information Management System-->
+<!--Batch 4.1-->
+<!--G333 -->
+<!--Dolawattage K.J. -->
+<!--IT22604330 -->*/
+package com.grade;
+
+import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet("/gradeservlet")
+public class gradeservlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
+		String name = request.getParameter("field2");
+	
+		String assignment1 = request.getParameter("field3");
+		String midexam = request.getParameter("field4");
+		String finalexam = request.getParameter("field5");
+		String finalgrade = request.getParameter("field6");
+		String status = request.getParameter("field7");
+		
+		boolean isTrue;
+		
+		isTrue = gradesDbUtil.Insertgrade(name, assignment1, midexam, finalexam, finalgrade, status);
+				
+	  if(isTrue == true) {
+		  RequestDispatcher dis = request.getRequestDispatcher("success.jsp");
+		  dis.forward(request,response);
+	  }else {
+		  RequestDispatcher dis2 = request.getRequestDispatcher("unsuccess.jsp");
+		  dis2.forward(request,response);
+	  }
+	}
+
+}
